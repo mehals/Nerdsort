@@ -1,0 +1,53 @@
+package com.mehal.nerdsort.types;
+
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="item_lists")
+public class OrderableList implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7440417144271147341L;
+
+	@Column (name="list_name")
+	private String listTitle;
+		
+	@OneToMany(mappedBy="orderableList")
+	private List<SortableItem> items;
+	
+	@Id
+	@GeneratedValue
+	@Column(name = "list_id")
+	private int listId;
+	
+	public OrderableList() {
+		
+	}
+	
+	public OrderableList(int listId, String listTitle, List<SortableItem> items) {
+		this.listId = listId;
+		this.listTitle = listTitle;
+		this.items = items;
+	}				
+	
+	public String getListTitle() {
+		return listTitle;
+	}
+	public void setListTitle(String listTitle) {
+		this.listTitle = listTitle;
+	}
+	
+	public List<SortableItem> getItems() {
+		return items;
+	}
+		
+	public void setItems(List<SortableItem> items) {
+		this.items = items;
+	}	
+}
