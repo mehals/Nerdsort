@@ -111,9 +111,10 @@
 	<link href='http://fonts.googleapis.com/css?family=Droid+Serif' rel='stylesheet' type='text/css'>
 <body>
 		<section>
-			<h2><label>${captainList.listTitle}</label></h2>
+		<c:forEach items="${allLists}" var="itemList">
+			<h2><label>${itemList.listTitle}</label></h2>
 			<ul class="sortable grid portrait">
-				<c:forEach items="${captainList.items}" var="item">
+				<c:forEach items="${itemList.items}" var="item">
 	   				<li>
 	   					<img src="resources/images/${item.imageUrl}">
 	   					<div>
@@ -123,6 +124,7 @@
 	   				</li>   				
 				</c:forEach>		
 			</ul>			
+		</c:forEach>
 		</section>
 		<input type="Submit">
 

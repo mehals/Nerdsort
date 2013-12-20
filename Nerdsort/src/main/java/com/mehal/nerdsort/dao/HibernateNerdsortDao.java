@@ -33,4 +33,9 @@ public class HibernateNerdsortDao implements NerdsortDao {
 		return (OrderableList) (getCurrentSession().get(OrderableList.class, listId));
 	}
 
+	@Override
+	public List<OrderableList> getAllLists() {
+		return getCurrentSession().createQuery("from OrderableList").list();
+	}
+
 }

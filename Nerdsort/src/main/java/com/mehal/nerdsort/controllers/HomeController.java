@@ -41,8 +41,8 @@ public class HomeController {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
 		System.out.println(nerdsortDao.getListForId(1).getItems());
-		OrderableList captainList = nerdsortDao.getListForId(1);
-		model.addAttribute("captainList", captainList);
+		List<OrderableList> allLists = nerdsortDao.getAllLists();
+		model.addAttribute("allLists", allLists);
 				
 		return "home";
 	}	

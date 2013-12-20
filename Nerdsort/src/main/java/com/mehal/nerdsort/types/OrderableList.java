@@ -18,7 +18,7 @@ public class OrderableList implements Serializable {
 	@Column (name="list_name")
 	private String listTitle;
 		
-	@OneToMany(mappedBy="orderableList")
+	@OneToMany(mappedBy="orderableList", fetch = FetchType.EAGER)
 	private List<SortableItem> items;
 	
 	@Id
