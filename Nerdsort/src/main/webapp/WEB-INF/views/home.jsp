@@ -3,7 +3,7 @@
 <%@ page session="false" %>
 <html>
 <head>
-	<title>Home</title>
+	<title>Welcome to Nerdsort</title>
 </head>
 	<style>
 		header, section {
@@ -110,12 +110,14 @@
 	</style>
 	<link href='http://fonts.googleapis.com/css?family=Droid+Serif' rel='stylesheet' type='text/css'>
 <body>
+		<form id="fullListSubmission">
 		<section>
 		<c:forEach items="${allLists}" var="itemList">
+			<section id="listId${itemList.listId}" class="itemListClass">
 			<h2><label>${itemList.listTitle}</label></h2>
-			<ul class="sortable grid portrait">
+			<ul class="sortable grid portrait mylist">
 				<c:forEach items="${itemList.items}" var="item">
-	   				<li>
+	   				<li id="itemId${item.itemId}">
 	   					<img src="resources/images/${item.imageUrl}">
 	   					<div>
 	   					<label>${item.name}</label>
@@ -124,10 +126,12 @@
 	   				</li>   				
 				</c:forEach>		
 			</ul>			
+			</section>
 		</c:forEach>
 		</section>
 		<input type="Submit">
-
+		</form>
+		
 	
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script src="resources/jquery.sortable.js"></script>
@@ -146,6 +150,18 @@
 			$('.sortable.grid.portrait img.x').click(function() {
 				$(this).parent().parent().remove();
 			});			
+			$('#fullListSubmission').submit(function (event) {
+				var listVoting = {};
+				$('.itemListClass').each(function (index, element) {
+					var ordering = [];
+					$(element).find('li').each(function (index2, element2) {						
+						ordering.push(element2.id.substring(6));
+					});
+					listVoting[element.id] = ordering;					
+				});
+				console.log(listVoting);
+				event.preventDefault();
+			});
 		});
 	</script>
 </body>

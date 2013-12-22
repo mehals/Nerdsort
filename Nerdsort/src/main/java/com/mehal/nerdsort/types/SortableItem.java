@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "SORTABLE_ITEMS")
-public class SortableItem implements Serializable {
+public class SortableItem implements Serializable, Comparable {
 	/**
 	 * 
 	 */
@@ -22,6 +22,9 @@ public class SortableItem implements Serializable {
 	
 	@Column(name="ITEM_NAME", nullable = false)
 	private String name;
+	
+	@Column(name="POSITION", nullable = false)
+	private int position;
 
 	@ManyToOne
 	@JoinColumn(name="list_id")
@@ -64,5 +67,12 @@ public class SortableItem implements Serializable {
 
 	public void setOrderableList(OrderableList orderableList) {
 		this.orderableList = orderableList;
+	}
+
+
+	@Override
+	public int compareTo(Object o) {
+		SortableItem that = (SortableItem) o;
+		return com.google.common.collect.ComparisonChain.start().compare(this.position, that.position).compare(this.itemId, that.itemId).result();
 	}
 }

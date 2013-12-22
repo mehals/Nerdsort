@@ -1,6 +1,7 @@
 package com.mehal.nerdsort.types;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -36,6 +37,14 @@ public class OrderableList implements Serializable {
 		this.items = items;
 	}				
 	
+	public int getListId() {
+		return listId;
+	}
+
+	public void setListId(int listId) {
+		this.listId = listId;
+	}
+
 	public String getListTitle() {
 		return listTitle;
 	}
@@ -43,8 +52,10 @@ public class OrderableList implements Serializable {
 		this.listTitle = listTitle;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<SortableItem> getItems() {
-		return items;
+		Collections.sort(items);
+		return this.items;
 	}
 		
 	public void setItems(List<SortableItem> items) {

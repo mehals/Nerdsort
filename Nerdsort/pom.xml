@@ -151,6 +151,17 @@
 			<artifactId>hibernate-c3p0</artifactId>
 			<version>4.2.7.Final</version>
 		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>15.0</version>
+			<classifier>site</classifier>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava-collections</artifactId>
+			<version>r03</version>
+		</dependency>
 	</dependencies>
     <build>
         <plugins>
