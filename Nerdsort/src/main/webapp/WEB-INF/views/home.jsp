@@ -159,7 +159,7 @@
 					$(element).find('li').each(function (index2, element2) {						
 						ordering.push(element2.id.substring(6));
 					});
-					listVoting[element.id] = ordering;					
+					listVoting[element.id.substring(6)] = ordering;					
 				});
 				
 				

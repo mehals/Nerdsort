@@ -10,4 +10,6 @@ public interface NerdsortDao {
 	public SortableItem getItemForId(int itemId);
 
 	public OrderableList getListForId(int listId);
+	
+	public void storeVotes(List<UserVote> votes);
 }

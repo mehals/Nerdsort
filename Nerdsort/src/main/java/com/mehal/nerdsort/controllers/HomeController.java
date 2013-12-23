@@ -3,6 +3,7 @@ package com.mehal.nerdsort.controllers;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Random;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.mehal.nerdsort.dao.NerdsortDao;
+import com.mehal.nerdsort.managers.VoteManager;
 import com.mehal.nerdsort.types.OrderableList;
 import com.mehal.nerdsort.types.Vote;
 
@@ -29,6 +31,10 @@ public class HomeController {
 	
 	@Autowired
 	private NerdsortDao nerdsortDao;
+	
+	@Autowired
+	private VoteManager voteManager;
+	
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(HomeController.class);
@@ -50,6 +56,12 @@ public class HomeController {
 	@RequestMapping(value = "/vote", method = RequestMethod.POST)
 	public String getVote(@ModelAttribute("vote") Vote vote, BindingResult result, Model model) {
 		System.out.println(vote.toString());
+		Random r = new Random();
+
+		voteManager.storeVotesFromJson(vote.getVoteString(), r.nextInt(100000));
+		
+		
+		
 		List<OrderableList> allLists = nerdsortDao.getAllLists();
 		model.addAttribute("allLists", allLists);
 		model.addAttribute("vote", new Vote());

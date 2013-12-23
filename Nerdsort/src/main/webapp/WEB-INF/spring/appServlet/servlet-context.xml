@@ -48,6 +48,10 @@
 		<beans:constructor-arg ref="sessionFactory"/>
 	</beans:bean>
 	
+	<beans:bean id="voteManager" class="com.mehal.nerdsort.managers.VoteManager">
+		<beans:constructor-arg ref="hibernateNerdsortDao"/>
+	</beans:bean>
+	
 	<beans:bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">     
 	     <beans:property name="sessionFactory">
 	         <beans:ref local="sessionFactory"/>

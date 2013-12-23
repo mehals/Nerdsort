@@ -1,13 +1,17 @@
 package com.mehal.nerdsort.types;
 
 import java.io.Serializable;
-import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "SORTABLE_ITEMS")
-public class SortableItem implements Serializable, Comparable {
+public class SortableItem implements Serializable, Comparable<SortableItem> {
 	/**
 	 * 
 	 */
@@ -71,8 +75,7 @@ public class SortableItem implements Serializable, Comparable {
 
 
 	@Override
-	public int compareTo(Object o) {
-		SortableItem that = (SortableItem) o;
+	public int compareTo(SortableItem that) {
 		return com.google.common.collect.ComparisonChain.start().compare(this.position, that.position).compare(this.itemId, that.itemId).result();
 	}
 }

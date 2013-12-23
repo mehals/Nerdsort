@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mehal.nerdsort.types.OrderableList;
 import com.mehal.nerdsort.types.SortableItem;
+import com.mehal.nerdsort.types.UserVote;
 
 @Transactional
 public class HibernateNerdsortDao implements NerdsortDao {
@@ -33,9 +34,17 @@ public class HibernateNerdsortDao implements NerdsortDao {
 		return (OrderableList) (getCurrentSession().get(OrderableList.class, listId));
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<OrderableList> getAllLists() {
 		return getCurrentSession().createQuery("from OrderableList").list();
+	}
+
+	@Override
+	public void storeVotes(List<UserVote> votes) {
+		for(UserVote vote : votes) {
+			getCurrentSession().save(vote);
+		}		
 	}
 
 }

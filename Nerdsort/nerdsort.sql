@@ -15,7 +15,9 @@ PRIMARY KEY (user_id)
 create table if not exists USER_ORDERING (
 list_id BIGINT NOT null,
 user_id BIGINT NOT null,
-user_ordering text NOT null
+user_ordering text NOT null,
+user_ordering_id BIGINT NOT NULL auto_increment,
+primary key (user_ordering_id)
 );
 
 create table if not exists SORTABLE_ITEMS (
@@ -40,5 +42,11 @@ add constraint fk_sortable_items_list_id
 foreign key (list_id) references item_lists(list_id)
 on update cascade
 on delete cascade;
+
+create index user_ordering_user_index
+on user_ordering (user_id);
+
+create index user_ordering_list_index
+on user_ordering (list_id);
 
 commit;

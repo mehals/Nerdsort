@@ -2,11 +2,15 @@ package com.mehal.nerdsort.types;
 
 import java.io.Serializable;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
 @Table(name="item_lists")
@@ -52,7 +56,6 @@ public class OrderableList implements Serializable {
 		this.listTitle = listTitle;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public List<SortableItem> getItems() {
 		Collections.sort(items);
 		return this.items;
