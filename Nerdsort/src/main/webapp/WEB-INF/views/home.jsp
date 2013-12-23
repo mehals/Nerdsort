@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="sf" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ page session="false" %>
 <html>
 <head>
@@ -110,31 +110,33 @@
 	</style>
 	<link href='http://fonts.googleapis.com/css?family=Droid+Serif' rel='stylesheet' type='text/css'>
 <body>
-		<form id="fullListSubmission">
-		<section>
-		<c:forEach items="${allLists}" var="itemList">
-			<section id="listId${itemList.listId}" class="itemListClass">
-			<h2><label>${itemList.listTitle}</label></h2>
-			<ul class="sortable grid portrait mylist">
-				<c:forEach items="${itemList.items}" var="item">
-	   				<li id="itemId${item.itemId}">
-	   					<img src="resources/images/${item.imageUrl}">
-	   					<div>
-	   					<label>${item.name}</label>
-	   						<img class="x" src="resources/images/x.png">
-	   					</div>   					
-	   				</li>   				
-				</c:forEach>		
-			</ul>			
+		<form:form id="fullListSubmission" method="post" action="vote" modelAttribute="vote">
+			<section>
+				<c:forEach items="${allLists}" var="itemList">
+					<section id="listId${itemList.listId}" class="itemListClass">
+					<h2><label>${itemList.listTitle}</label></h2>
+					<ul class="sortable grid portrait mylist">
+						<c:forEach items="${itemList.items}" var="item">
+			   				<li id="itemId${item.itemId}">
+			   					<img src="resources/images/${item.imageUrl}">
+			   					<div>
+			   					<label>${item.name}</label>
+			   						<img class="x" src="resources/images/x.png">
+			   					</div>   					
+			   				</li>   				
+						</c:forEach>		
+					</ul>			
+					</section>
+				</c:forEach>
+				<form:input id="voteString" path="voteString" value="nothing"/>
 			</section>
-		</c:forEach>
-		</section>
-		<input type="Submit">
-		</form>
+			<input type="Submit" value="Cast your vote">
+		</form:form>
 		
 	
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script src="resources/jquery.sortable.js"></script>
+	<script src="resources/json2.min.js"></script>
 	<script>
 		$(function() {
 			$('.sortable').sortable();
@@ -159,8 +161,11 @@
 					});
 					listVoting[element.id] = ordering;					
 				});
+				
+				
+				
 				console.log(listVoting);
-				event.preventDefault();
+				$('#voteString').val(JSON.stringify(listVoting));
 			});
 		});
 	</script>
