@@ -26,13 +26,12 @@ import com.mehal.nerdsort.types.Vote;
 @Controller
 @SessionAttributes
 public class HomeController {
-	
+
 	@Autowired
 	private NerdsortDao nerdsortDao;
-	
+
 	@Autowired
 	private VoteManager voteManager;
-	
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(HomeController.class);
@@ -43,27 +42,26 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
-		
+
 		List<OrderableList> allLists = nerdsortDao.getAllLists();
 		model.addAttribute("allLists", allLists);
 		model.addAttribute("vote", new Vote());
-				
+
 		return "home";
-	}	
-	
+	}
+
 	@RequestMapping(value = "/vote", method = RequestMethod.POST)
-	public String getVote(@ModelAttribute("vote") Vote vote, BindingResult result, Model model) {
+	public String getVote(@ModelAttribute("vote") Vote vote,
+			BindingResult result, Model model) {
 		System.out.println(vote.toString());
 		Random r = new Random();
 
 		voteManager.storeVotesFromJson(vote.getVoteString(), r.nextInt(100000));
-		
-		
-		
+
 		List<OrderableList> allLists = nerdsortDao.getAllLists();
 		model.addAttribute("allLists", allLists);
 		model.addAttribute("vote", new Vote());
-		
+
 		return "home";
 	}
 
