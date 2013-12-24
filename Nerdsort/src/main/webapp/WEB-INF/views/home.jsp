@@ -115,8 +115,9 @@
 				<c:forEach items="${allLists}" var="itemList">
 					<section id="listId${itemList.listId}" class="itemListClass">
 					<h2><label>${itemList.listTitle}</label></h2>
+					
 					<ul class="sortable grid portrait mylist">
-						<c:forEach items="${itemList.items}" var="item">
+						<c:forEach items="${userHasVoted ? itemList.userSortedItems : itemList.items}" var="item">
 			   				<li id="itemId${item.itemId}">
 			   					<img src="resources/images/${item.imageUrl}">
 			   					<div>
@@ -128,7 +129,7 @@
 					</ul>			
 					</section>
 				</c:forEach>
-				<form:input id="voteString" path="voteString" value="nothing"/>
+				<form:input style="visibility:hidden" id="voteString" path="voteString" value="nothing"/>
 			</section>
 			<input type="Submit" value="Cast your vote">
 		</form:form>

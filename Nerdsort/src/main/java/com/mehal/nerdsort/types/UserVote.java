@@ -2,7 +2,11 @@ package com.mehal.nerdsort.types;
 
 import java.io.Serializable;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "user_ordering")
@@ -12,23 +16,23 @@ public class UserVote implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 3583805248788592902L;
-	
+
 	@Id
 	@GeneratedValue
-	@Column (name="user_ordering_id")
+	@Column(name = "user_ordering_id")
 	private int userOrderingId;
-	
-	@Column(name="list_id")
+
+	@Column(name = "list_id")
 	private int listId;
-	
-	@Column(name="user_id")
+
+	@Column(name = "user_id")
 	private int userId;
-	
-	@Column(name="user_ordering")
+
+	@Column(name = "user_ordering")
 	private String userOrdering;
-	
+
 	public UserVote() {
-		
+
 	}
 
 	public int getUserOrderingId() {
@@ -63,5 +67,8 @@ public class UserVote implements Serializable {
 		this.userOrdering = userOrdering;
 	}
 
+	public String toString() {
+		return this.userOrdering;
+	}
 
 }

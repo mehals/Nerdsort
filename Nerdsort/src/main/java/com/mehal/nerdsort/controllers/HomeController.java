@@ -45,6 +45,7 @@ public class HomeController {
 
 		List<OrderableList> allLists = nerdsortDao.getAllLists();
 		model.addAttribute("allLists", allLists);
+		model.addAttribute("userHasVoted", false);
 		model.addAttribute("vote", new Vote());
 
 		return "home";
@@ -53,14 +54,14 @@ public class HomeController {
 	@RequestMapping(value = "/vote", method = RequestMethod.POST)
 	public String getVote(@ModelAttribute("vote") Vote vote,
 			BindingResult result, Model model) {
-		System.out.println(vote.toString());
+
 		Random r = new Random();
+		int userId = r.nextInt(1000000);
+		voteManager.storeVotesFromJson(vote.getVoteString(), userId);
 
-		voteManager.storeVotesFromJson(vote.getVoteString(), r.nextInt(100000));
-
-		List<OrderableList> allLists = nerdsortDao.getAllLists();
-		model.addAttribute("allLists", allLists);
+		model.addAttribute("allLists", voteManager.getVoteForUser(userId));
 		model.addAttribute("vote", new Vote());
+		model.addAttribute("userHasVoted", true);
 
 		return "home";
 	}
