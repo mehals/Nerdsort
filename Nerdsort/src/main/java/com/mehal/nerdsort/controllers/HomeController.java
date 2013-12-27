@@ -72,6 +72,7 @@ public class HomeController {
 			throws Exception {
 		model.addAttribute("allLists", voteManager.getVoteForUser(userId));
 		model.addAttribute("userHasVoted", true);
+		model.addAttribute("vote", new Vote());
 		return "home";
 	}
 

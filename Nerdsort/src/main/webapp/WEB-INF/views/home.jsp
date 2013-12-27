@@ -148,7 +148,7 @@
 	<script src="resources/jquery.sortable.js"></script>
 	<script src="resources/json2.min.js"></script>
 	<script>
-		console.log("${userHasVoted}")
+		
 		$(function() {
 			$('.sortable').sortable();
 			$('.handles').sortable({
@@ -172,11 +172,17 @@
 					});
 					listVoting[element.id.substring(6)] = ordering;					
 				});
-				
-				
-				
-				console.log(listVoting);
+																
 				$('#voteString').val(JSON.stringify(listVoting));
+				
+				var storedCookie = document.cookie;
+				console.log(storedCookie)
+				if (storedCookie) {
+					console.log("DO NOT ALLOW VOTE");
+					//event.preventDefault();
+				} else {
+					document.cookie = "userHasVoted=true";
+				}
 			});
 		});
 	</script>
