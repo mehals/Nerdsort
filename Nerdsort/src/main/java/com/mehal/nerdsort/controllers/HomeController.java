@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.mehal.nerdsort.dao.NerdsortDao;
@@ -63,6 +64,14 @@ public class HomeController {
 		model.addAttribute("vote", new Vote());
 		model.addAttribute("userHasVoted", true);
 
+		return "home";
+	}
+
+	@RequestMapping(value = "/user", method = RequestMethod.GET)
+	public String viewVote(@RequestParam("userId") int userId, Model model)
+			throws Exception {
+		model.addAttribute("allLists", voteManager.getVoteForUser(userId));
+		model.addAttribute("userHasVoted", true);
 		return "home";
 	}
 

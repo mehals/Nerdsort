@@ -130,8 +130,17 @@
 					</section>
 				</c:forEach>
 				<form:input style="visibility:hidden" id="voteString" path="voteString" value="nothing"/>
-			</section>
-			<input type="Submit" value="Cast your vote">
+			</section>			
+			
+			<c:choose>
+				<c:when test="${userHasVoted}">
+					<input type="Submit" value="Cast your vote again">
+				</c:when>
+				<c:otherwise>
+					<input type="Submit" value="Cast your vote">
+				</c:otherwise>
+			</c:choose>		
+			
 		</form:form>
 		
 	
@@ -139,6 +148,7 @@
 	<script src="resources/jquery.sortable.js"></script>
 	<script src="resources/json2.min.js"></script>
 	<script>
+		console.log("${userHasVoted}")
 		$(function() {
 			$('.sortable').sortable();
 			$('.handles').sortable({
